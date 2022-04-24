@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    div.red {
+      background-color: red;
+      width: 100px;
+      height: 100px;
+      margin: 10px;
+    }
+  </style>
+  <body>
+    <!-- cdn import -->
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <div id="app">
+      <div>{{ message }}</div>
+      <div>{{ message }}</div>
+
+      <button @click="printer()">哈哈</button>
+
+      <div v-if="message === 'Hello Vue!' ">{{ apple }}</div>
+
+      <ul>
+        <li v-for="(item,index) in arr">{{index+1}}是{{item}}</li>
+      </ul>
+
+      <!-- <img :src="fakeImgUrl" /> -->
+
+      <button @click="createRed()">create</button>
+      <div class="red" v-for="item in redBox">
+        {{item}} <button @click="deleteRed()">x</button>
+      </div>
+    </div>
+
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            message: "Hello Vue!",
+            apple: "apple",
+            arr: [1, "A", 3],
+            fakeImgUrl: "https://fakeimg.pl/300/",
+            redBox: [],
+          };
+        },
+        //初始化
+        mounted() {
+          //   console.log(this.fakeImgUrl);
+          this.printer();
+        },
+        //function
+        methods: {
+          printer() {
+            console.log(123);
+          },
+          createRed() {
+            this.redBox.push(" ");
+          },
+          deleteRed() {
+            this.redBox.pop();
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
