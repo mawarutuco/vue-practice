@@ -1,72 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <style>
-    div.red {
-      background-color: red;
-      width: 100px;
-      height: 100px;
-      margin: 10px;
-    }
-  </style>
-  <body>
-    <!-- cdn import -->
-    <script src="https://unpkg.com/vue@3"></script>
 
-    <div id="app">
-      <div>{{ message }}</div>
-      <div>{{ message }}</div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+<style>
+  div.red {
+    background-color: red;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+  }
+</style>
 
-      <button @click="printer()">哈哈</button>
+<body>
+  <!-- cdn import -->
+  <script src="https://unpkg.com/vue@3"></script>
 
-      <div v-if="message === 'Hello Vue!' ">{{ apple }}</div>
+  <div id="app">
+    <!-- <div>{{ message }}</div>
+    <div>%{ message }%</div>
 
-      <ul>
-        <li v-for="(item,index) in arr">{{index+1}}是{{item}}</li>
-      </ul>
+    <button @click="printer()">哈哈</button>
 
-      <!-- <img :src="fakeImgUrl" /> -->
+    <div v-if="message === 'Hello Vue!' ">{{ apple }}</div>
 
-      <button @click="createRed()">create</button>
-      <div class="red" v-for="item in redBox">
-        {{item}} <button @click="deleteRed()">x</button>
-      </div>
-    </div>
+    <ul>
+      <li v-for="(item,index) in arr">{{index+1}}是{{item}}</li>
+    </ul>
 
-    <script>
-      Vue.createApp({
-        data() {
-          return {
-            message: "Hello Vue!",
-            apple: "apple",
-            arr: [1, "A", 3],
-            fakeImgUrl: "https://fakeimg.pl/300/",
-            redBox: [],
-          };
+    <img :src="fakeImgUrl" />
+
+    <button @click="createRed()">create</button>
+    <div class="red" v-for="item in redBox">
+      {{item}} <button @click="deleteRed()">x</button>
+    </div> -->
+
+    <!-- template: `123{{ name }} 好棒棒!` -->
+
+    <p>{{subtotal()}}</p>
+  </div>
+
+  <script>
+    Vue.createApp({
+      //  delimiters: ['%{', '}%'],
+      // template: `123{{ name }} 好棒棒!`, 
+
+      data() {
+        return {
+          message: "Hello Vue!",
+          apple: "apple",
+          arr: [1, "A", 3],
+          fakeImgUrl: "https://fakeimg.pl/300/",
+          redBox: [],
+          name: 'aaa',
+          price: 100,
+          quantity: 10
+        };
+      },
+      computed: {
+        subtotal: function () {
+          return this.price * this.quantity;
+        }
+      },
+      //初始化
+      mounted() {
+        //   console.log(this.fakeImgUrl);
+        this.printer();
+      },
+      //function
+      methods: {
+        printer() {
+          console.log(123);
         },
-        //初始化
-        mounted() {
-          //   console.log(this.fakeImgUrl);
-          this.printer();
+        createRed() {
+          this.redBox.push(" ");
         },
-        //function
-        methods: {
-          printer() {
-            console.log(123);
-          },
-          createRed() {
-            this.redBox.push(" ");
-          },
-          deleteRed() {
-            this.redBox.pop();
-          },
+        deleteRed() {
+          this.redBox.pop();
         },
-      }).mount("#app");
-    </script>
-  </body>
+      },
+    }).mount("#app");
+
+
+  </script>
+</body>
+
 </html>
