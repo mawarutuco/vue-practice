@@ -213,7 +213,6 @@
         type="text"
         v-model.trim="mes"
         placeholder="請勿超過3個字"
-
         :class="{ 'error': mes.length > 3 }"
       />
     </div>
@@ -236,6 +235,31 @@
         //   },
         // },
       }).mount("#messageLength");
+    </script>
+
+    <hr />
+
+    <div id="eventKey">
+      <p>你按下的是按鍵是: {{ pressKey }}</p>
+      <input type="text" @keyup="press" />
+    </div>
+
+    <script>
+      const vm = Vue.createApp({
+        data: () => {
+          return {
+            pressKey: "",
+          };
+        },
+        methods: {
+          press(event) {
+            this.pressKey = event.key;
+            window.setTimeout(() => {
+              event.target.value = "";
+            }, 500);
+          },
+        },
+      }).mount("#eventKey");
     </script>
   </body>
 </html>
