@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
+
+  <style>
+    .error {
+      color: red;
+    }
+  </style>
+
   <body>
     <script src="https://unpkg.com/vue@3"></script>
 
@@ -28,28 +35,6 @@
         ></todo-item>
       </ul>
     </div>
-    <hr />
-    <div id="countPlus">
-      <hyo></hyo>
-      <hyo></hyo>
-    </div>
-    <hr />
-    <div id="money">
-      <div>台幣 <input type="text" v-model="twd" /></div>
-      <div>日幣 <input type="text" v-model="jpy" /></div>
-      <div>美元 <input type="text" v-model="usd" /></div>
-    </div>
-    <hr />
-    <div id="radioTest">
-      <input v-model="picked" value="1" type="radio" id="one" />
-      <label for="one">one</label>
-      <input v-model="picked" value="2" type="radio" id="two" />
-      <label for="two">two</label> →→→ 現在選的是{{picked}}
-      <p v-if="picked=='2'">選到2時出現</p>
-    </div>
-
-    <hr />
-
     <script>
       const app = Vue.createApp({
         data() {
@@ -85,13 +70,21 @@
         emits: ["remove"],
       });
       app.mount("#todo-list-example");
-      //----------------------------
+    </script>
+
+    <hr />
+
+    <div id="countPlus">
+      <hyo></hyo>
+      <hyo></hyo>
+    </div>
+    <script>
       const countPlus = Vue.createApp({});
       countPlus.component("hyo", {
         template: `
-              <div>總數{{count}}</div>
-      <button @click="count++">增加</button>
-      `,
+          <div>總數{{count}}</div>
+  <button @click="count++">增加</button>
+  `,
         data() {
           return {
             count: 0,
@@ -99,7 +92,16 @@
         },
       });
       countPlus.mount("#countPlus");
-      //----------------------------
+    </script>
+
+    <hr />
+
+    <div id="money">
+      <div>台幣 <input type="text" v-model.lazy.number="twd" /></div>
+      <div>日幣 <input type="text" v-model.lazy.number="jpy" /></div>
+      <div>美元 <input type="text" v-model.lazy.number="usd" /></div>
+    </div>
+    <script>
       Vue.createApp({
         data() {
           return {
@@ -125,7 +127,18 @@
           },
         },
       }).mount("#money");
-      //--------------------
+    </script>
+
+    <hr />
+
+    <div id="radioTest">
+      <input v-model="picked" value="1" type="radio" id="one" />
+      <label for="one">one</label>
+      <input v-model="picked" value="2" type="radio" id="two" />
+      <label for="two">two</label> →→→ 現在選的是{{picked}}
+      <p v-if="picked=='2'">選到2時出現</p>
+    </div>
+    <script>
       Vue.createApp({
         data() {
           return {
@@ -133,8 +146,96 @@
           };
         },
       }).mount("#radioTest");
-      //-----------------------
+    </script>
 
+    <hr />
+
+    <div id="checkboxTest">
+      <input v-model="picked" value="you" type="checkbox" id="one" />
+      <label for="one">you</label>
+      <input v-model="picked" value="me" type="checkbox" id="two" />
+      <label for="two">me</label>
+      <input v-model="picked" value="he" type="checkbox" id="three" />
+      <label for="three">he</label>
+      <input v-model="picked" value="she" type="checkbox" id="four" />
+      <label for="four">she</label>
+      <p>{{picked}}</p>
+    </div>
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            picked: [],
+          };
+        },
+      }).mount("#checkboxTest");
+    </script>
+
+    <hr />
+
+    <div id="selectTest">
+      <select v-model="picked" name="" id="selectList">
+        <option value="A">A</option>
+        <option value="B">B</option>
+      </select>
+      <p>{{picked||'未選'}}</p>
+    </div>
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            picked: "",
+          };
+        },
+      }).mount("#selectTest");
+    </script>
+
+    <!-- <hr />
+
+    <div id="test">
+      <div v-text="hyo">{{ya}}</div>
+    </div>
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            hyo: "ho",
+            ya: "yaa",
+          };
+        },
+      }).mount("#test");
+    </script> -->
+
+    <hr />
+
+    <div id="messageLength">
+      <input
+        type="text"
+        v-model.trim="mes"
+        placeholder="請勿超過3個字"
+
+        :class="{ 'error': mes.length > 3 }"
+      />
+    </div>
+    <!-- :style="msgStyle" -->
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            mes: "",
+          };
+        },
+        // computed: {
+        //   isVaild: function () {
+        //     return this.mes.length <= 3;
+        //   },
+        //   msgStyle: function () {
+        //     return {
+        //       color: this.isVaild ? "" : "red",
+        //     };
+        //   },
+        // },
+      }).mount("#messageLength");
     </script>
   </body>
 </html>
