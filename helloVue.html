@@ -21,7 +21,7 @@
   <script src="https://unpkg.com/vue@3"></script>
 
   <div id="app">
-    <!-- <div>{{ message }}</div>
+    <div>{{ message }}</div>
     <div>%{ message }%</div>
 
     <button @click="printer()">哈哈</button>
@@ -37,11 +37,7 @@
     <button @click="createRed()">create</button>
     <div class="red" v-for="item in redBox">
       {{item}} <button @click="deleteRed()">x</button>
-    </div> -->
-
-    <!-- template: `123{{ name }} 好棒棒!` -->
-
-    <p>{{subtotal()}}</p>
+    </div>
   </div>
 
   <script>
@@ -61,18 +57,13 @@
           quantity: 10
         };
       },
-      computed: {
-        subtotal: function () {
-          return this.price * this.quantity;
-        }
-      },
       //初始化
       mounted() {
         //   console.log(this.fakeImgUrl);
-        this.printer();
+        // this.printer();
       },
       //function
-      methods: {
+      methods:{
         printer() {
           console.log(123);
         },
