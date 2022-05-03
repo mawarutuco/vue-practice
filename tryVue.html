@@ -11,6 +11,10 @@
     .error {
       color: red;
     }
+
+    tr,td{
+      border: 2px solid black;
+    }
   </style>
 
   <body>
@@ -243,7 +247,6 @@
       <p>你按下的是按鍵是: {{ pressKey }}</p>
       <input type="text" @keyup="press" />
     </div>
-
     <script>
       const vm = Vue.createApp({
         data: () => {
@@ -260,6 +263,57 @@
           },
         },
       }).mount("#eventKey");
+    </script>
+
+    <hr />
+
+    <div id="rowCol">
+      列 <input type="text" v-model.lazy.number="rowNum" /> <br />
+      欄 <input type="text" v-model.lazy.number="colNum" />
+
+      <div v-if="rowNum>0">
+          {{tableStart}} 
+         <div v-for="n in rowNum">
+            &emsp;{{rowStart}}
+              <div v-for="n in colNum">&emsp;&emsp;{{col}}</div>
+            &emsp;{{rowEnd}}
+         </div>
+           {{tableEnd}}
+      </div>
+      <div v-html="drawingTable"></div>
+
+    </div>
+
+    </div>
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            tableStart:'<table>',
+            tableEnd:'</table>',
+            rowStart: "<tr>",
+            rowEnd: "</tr>",
+            col: "<td></td>",
+            rowNum: 0,
+            colNum: 0,
+            br:'<br>',
+            drawingTable:''
+          };
+        },
+        method:{
+          doIt(){
+            drawingTable+=tableStart;
+
+            for(let n in colNum){
+            drawingTable+=col
+           }
+
+            drawingTable+=tableEnd;
+
+            return drawingTable;
+          }
+        }
+      }).mount("#rowCol");
     </script>
   </body>
 </html>
