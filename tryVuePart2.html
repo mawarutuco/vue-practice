@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <div id="showNumber">
+      <!-- <div v-for="number in showThat">{{number}}</div> -->
+    </div>
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+          };
+        },
+        computed: {
+          showThat() {
+            return this.numbers.filter((number) => number % 2 === 0);
+          },
+        },
+      }).mount("#showNumber");
+    </script>
+
+    <hr />
+
+    <div id="toDoListTest">
+      <input type="text" v-model="toDoItem" />
+      <button @click="addToDo()">ADD</button>
+      <h3>toDo</h3>
+      <ul>
+        <li id="toDo" v-for="item in toDoList" :key="item.id">
+          <input v-model="item.isDone" type="checkbox" />{{item.title}}
+        </li>
+      </ul>
+      <h3>Done</h3>
+      <ul>
+        <li id="done" v-for="item in doneList" :key="item.id">
+          <input v-model="item.isDone" type="checkbox" />{{item.title}}
+        </li>
+      </ul>
+    </div>
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            toDoItem: "",
+            list: [
+              { id: 1, title: "AAA", isDone: false },
+              { id: 2, title: "BBB", isDone: false },
+              { id: 3, title: "CCC", isDone: false },
+            ],
+            nextId: 4,
+          };
+        },
+        computed: {
+          toDoList() {
+            return this.list.filter((d) => !d.isDone);
+          },
+          doneList() {
+            return this.list.filter((d) => d.isDone);
+          },
+        },
+        methods: {
+          addToDo() {
+            this.list.push({
+              id: this.nextId++,
+              title: this.toDoItem,
+              isDone: false,
+            });
+            this.toDoItem = "";
+          },
+        },
+      }).mount("#toDoListTest");
+    </script>
+
+    <hr />
+
+    
+  </body>
+</html>

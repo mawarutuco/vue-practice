@@ -12,8 +12,14 @@
       color: red;
     }
 
-    tr,td{
-      border: 2px solid black;
+    table {
+      border-collapse: collapse;
+    }
+
+    td {
+      border: 1px solid black;
+      width: 10px;
+      height: 10px;
     }
   </style>
 
@@ -268,51 +274,52 @@
     <hr />
 
     <div id="rowCol">
-      列 <input type="text" v-model.lazy.number="rowNum" /> <br />
-      欄 <input type="text" v-model.lazy.number="colNum" />
-
-      <div v-if="rowNum>0">
-          {{tableStart}} 
-         <div v-for="n in rowNum">
-            &emsp;{{rowStart}}
-              <div v-for="n in colNum">&emsp;&emsp;{{col}}</div>
-            &emsp;{{rowEnd}}
-         </div>
-           {{tableEnd}}
+      <form action="" @change="draw">
+        列 <input type="text" v-model.lazy.number="rowNum" /> <br />
+        欄 <input type="text" v-model.lazy.number="colNum" />
+      </form>
+      <div v-if="rowNum&&colNum">
+        {{tableStart}}
+        <div v-for="n in rowNum">
+          &emsp;{{rowStart}}
+          <div v-for="n in colNum">&emsp;&emsp;{{col}}</div>
+          &emsp;{{rowEnd}}
+        </div>
+        {{tableEnd}}
+        <div v-html="drawingTable"></div>
       </div>
-      <div v-html="drawingTable"></div>
-
     </div>
-
-    </div>
+    <br /><br /><br />
     <script>
       Vue.createApp({
         data() {
           return {
-            tableStart:'<table>',
-            tableEnd:'</table>',
+            tableStart: "<table>",
+            tableEnd: "</table>",
             rowStart: "<tr>",
             rowEnd: "</tr>",
             col: "<td></td>",
             rowNum: 0,
             colNum: 0,
-            br:'<br>',
-            drawingTable:''
+            drawingTable: "",
           };
         },
-        method:{
-          doIt(){
-            drawingTable+=tableStart;
-
-            for(let n in colNum){
-            drawingTable+=col
-           }
-
-            drawingTable+=tableEnd;
-
-            return drawingTable;
-          }
-        }
+        methods: {
+          draw: function () {
+            this.drawingTable = "";
+            this.drawingTable += this.tableStart;
+            for (let i = 0; i < this.rowNum; i++) {
+              this.drawingTable += this.rowStart;
+              for (let j = 0; j < this.colNum; j++) {
+                this.drawingTable +='&emsp;';
+                this.drawingTable += this.col;
+              }
+              this.drawingTable += this.rowEnd;
+            }
+            this.drawingTable += this.tableEnd;
+            return this.drawingTable;
+          },
+        },
       }).mount("#rowCol");
     </script>
   </body>
