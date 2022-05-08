@@ -44,6 +44,7 @@
           @remove="todos.splice(index, 1)"
         ></todo-item>
       </ul>
+      <hyo></hyo>
     </div>
     <script>
       const app = Vue.createApp({
@@ -67,12 +68,16 @@
             });
             this.newTodoText = "";
           },
-        },
+        },components:{
+          'hyo':{
+            template:'123'
+          }
+        }
       });
       app.component("todo-item", {
         template: `
           <li>
-            {{ title }}
+            {{ title }}123456
             <button @click="$emit('remove')">Remove</button>
           </li>
         `,

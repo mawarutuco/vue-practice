@@ -81,6 +81,23 @@
 
     <hr />
 
-    
+    <div id="app">
+        {{yoo}}
+        <todoItem></todoItem>
+    </div>
+    <!-- <script type="model" src="./test.js"></script> -->
+    <script>
+        
+        // import todoItem from './components/hyo.js';
+        Vue.createApp({
+            components:{
+                // todoItem
+            },data(){
+                return {
+                    yoo:'yoo'
+                }
+            }
+        }).mount('#app')
+    </script>
   </body>
 </html>
