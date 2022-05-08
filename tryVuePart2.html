@@ -82,22 +82,56 @@
     <hr />
 
     <div id="app">
-        {{yoo}}
-        <todoItem></todoItem>
+      {{yoo}}
+      <!-- <todoItem></todoItem> -->
     </div>
     <!-- <script type="model" src="./test.js"></script> -->
     <script>
-        
-        // import todoItem from './components/hyo.js';
-        Vue.createApp({
-            components:{
-                // todoItem
-            },data(){
-                return {
-                    yoo:'yoo'
-                }
-            }
-        }).mount('#app')
+      // import todoItem from './components/hyo.js';
+      Vue.createApp({
+        components: {
+          // todoItem
+        },
+        data() {
+          return {
+            yoo: "yoo",
+          };
+        },
+      }).mount("#app");
     </script>
+
+    <hr />
+
+    <div id="propsTest">
+      {{msg}} <br />
+      <hyo v-bind:parent-msg="msg"></hyo><br />
+      <hyo></hyo>
+    </div>
+
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            msg: "外部", //外部
+          };
+        },
+      });
+
+      app.component("hyo", {
+        template: `
+						{{ parentMsg}}  
+						{{msg}}         
+        `,
+        props: ["parentMsg"],
+        data() {
+          return {
+            msg: "內部", //外部
+          };
+        },
+      });
+      app.mount("#propsTest");
+    </script>
+
+    <hr />
   </body>
 </html>
