@@ -133,5 +133,59 @@
     </script>
 
     <hr />
+
+    <div id="bookPropsTest">
+      <ul v-for="book in books" class="book">
+        <li>{{ book.name }}</li>
+        <li>{{ book.author }}</li>
+        <li>{{ book.publishedAt }}</li>
+      </ul>
+
+      <my-component
+        v-for="book in books"
+      
+        :name="book.name"
+        :author="book.author"
+        :published-at="book.publishedAt"
+      />
+      <!-- v-bind="book"   或者不放name那三行，只放這行-->
+    </div>
+
+    <script>
+      const hyo = Vue.createApp({
+        data() {
+          return {
+            books: [
+              {
+                name: "0 陷阱！0 誤解！8 天重新認識 JavaScript！",
+                author: "Kuro Hsu",
+                publishedAt: "2019/09",
+              },
+              {
+                name: "重新認識 Vue.js",
+                author: "Kuro Hsu",
+                publishedAt: "2021/02",
+              },
+            ],
+          };
+        },
+      });
+
+      hyo.component("my-component", {
+        template: `
+  <div class="child-app">
+      <div>書名: <input type="text" v-model="name"></div>
+      <div>作者: <input type="text" v-model="author"></div>
+      <div>出版日: <input type="text" v-model="publishedAt"></div>
+  </div>`,
+        props: ["name", "author", "published-at"],
+      });
+
+      hyo.mount("#bookPropsTest");
+    </script>
+
+    <hr />
+
+    <script></script>
   </body>
 </html>
