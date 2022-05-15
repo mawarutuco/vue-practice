@@ -278,5 +278,76 @@
       });
       vmShareBook.mount("#goodBooksShare");
     </script>
+
+    <hr />
+
+    <div id="inputTest">
+      <h1>{{msg}}</h1>
+      <hyo v-model="msg"></hyo>
+      <!-- <input type="text" v-model="msg" @change="doIt"> -->
+    </div>
+    <script>
+      const vmInputTest = Vue.createApp({
+        data() {
+          return {
+            msg: "a",
+          };
+        },
+        // methods: {
+        //   toIt: function () {
+        //     return this.msg;
+        //   },
+        // },
+      });
+      vmInputTest.component("hyo", {
+        props: ["modelValue"],
+        template: ` 
+          <input
+           :value="modelValue"
+           @input="$emit('update:modelValue',$event.target.value)">`,
+      });
+
+      vmInputTest.mount("#inputTest");
+    </script>
+
+    <hr />
+
+    <div id="currentTab">
+      <button
+        v-for="tab in tabs"
+        :key="tab"
+        :class="['tab-button', { active: currentTab === tab }]"
+        @click="currentTab = tab"
+      >
+        {{tab}}
+      </button>
+      <component :is="currentTabComponent"></component>
+    </div>
+    <script>
+      const vmCurrentTab = Vue.createApp({
+        data() {
+          return {
+            currentTab: "home",
+            tabs: ["home", "next", "last"],
+          };
+        },
+        computed: {
+          currentTabComponent() {
+            return `tab-${this.currentTab.toLowerCase()}`;
+          },
+        },
+      });
+      vmCurrentTab.component("tab-home", {
+        template: `<div class="demo-tab">Home component</div>`,
+      });
+      vmCurrentTab.component("tab-next", {
+        template: `<div class="demo-tab">next</div>`,
+      });
+      vmCurrentTab.component("tab-last", {
+        template: `<div class="demo-tab">last</div>`,
+      });
+
+      vmCurrentTab.mount("#currentTab");
+    </script>
   </body>
 </html>
