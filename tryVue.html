@@ -77,7 +77,7 @@
       app.component("todo-item", {
         template: `
           <li>
-            {{ title }}123456
+            {{ title }}
             <button @click="$emit('remove')">Remove</button>
           </li>
         `,
@@ -306,6 +306,7 @@
             col: "<td></td>",
             rowNum: 0,
             colNum: 0,
+            writeCode:"",
             drawingTable: "",
           };
         },
