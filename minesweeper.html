@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>minesweeper</title>
+    <!-- sweetalert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js"></script>
+
+    <!-- jq -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- vue -->
+    <script src="https://unpkg.com/vue@3"></script>
+  </head>
+  <style>
+    body {
+      display: inline-block;
+    }
+    button {
+      width: 50px;
+      height: 50px;
+      margin: 1px;
+      background-color: gray;
+    }
+    .white {
+      background-color: white;
+    }
+  </style>
+  <body>
+    <div id="game">
+      <!-- <button @click="creatBtn">start</button><br /><br /> -->
+      <!-- <button v-for="n in btnQty"></button> -->
+      <!-- <div v-html="putBtnOnGame"></div> -->
+      <div v-for="n in btnSide"><hyo v-for="n in btnSide"></hyo></div>
+    </div>
+    <script>
+      const vm = Vue.createApp({
+        data() {
+          return {
+            // btn: "<button @click='changeBtnColor' ></button>",
+            // btnQty: 16,
+            // putBtnOnGame: "",
+            btnSide: 5,
+          };
+        },
+        methods: {
+          random() {
+            return Math.floor(Math.random() * Math.pow(this.btnSide, 2));
+          },
+          checkBtn() {},
+          // creatBtn() {
+          //   this.putBtnOnGame = "";
+          //   for (let i = 1; i <= this.btnQty; i++) {
+          //     this.putBtnOnGame += this.btn;
+          //     if (i % 4 == 0) this.putBtnOnGame += "<br>";
+          //   }
+          // },
+        },
+        mounted() {
+          // this.creatBtn();
+          console.log(this.random());
+        },
+      });
+
+      vm.component("hyo", {
+        data() {
+          return {
+            pos:0,
+            isClick: false,
+          };
+        },
+        template: `<button
+        @click.stop="main"
+        :class="{'white':isClick}"
+        >{{}}</button>`,
+        props: ["btnSide"],
+        methods: {
+          main(){
+            this.changeBtnColor()
+          },
+          changeBtnColor() {
+            this.isClick = true;
+          },
+        },
+        mounted() {
+          
+        }
+      });
+      vm.mount("#game");
+
+      //btn排法為 n*n
+      //點btn本身變色
+      //隨機放置炸彈
+      //點btn判斷是否踩到炸彈
+      //點btn回饋身邊炸彈數量
+    </script>
+  </body>
+</html>
