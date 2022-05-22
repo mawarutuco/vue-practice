@@ -186,7 +186,7 @@
     <hr />
 
     <div id="goodBooksShare">
-      <hyo :title="menuData.name" :child="menuData.childNodes"></hyo>
+      <!-- <hyo :title="menuData.name" :child="menuData.childNodes"></hyo> -->
     </div>
     <script>
       const menuData = {
@@ -348,6 +348,47 @@
       });
 
       vmCurrentTab.mount("#currentTab");
+    </script>
+
+    <hr />
+
+    <div id="slotHeaderTest">
+      <hyo>
+        <template v-slot:header>
+          <h2>我是頭</h2>
+        </template>
+        <template #floor>
+          <h2>我是腳</h2>
+        </template>
+
+        <div>
+          <a href="#">AAA</a>
+        </div>
+      </hyo>
+    </div>
+    <script>
+      const slotHeaderTestVm = Vue.createApp({});
+      slotHeaderTestVm.component("hyo", {
+        data: () => ({ isShow: false }),
+        // data() {
+        //   return { isShow: false };
+        // },
+        computed: {
+          showStyle() {
+            return { display: this.isShow ? "" : "none" };
+          },
+        },
+        methods: {},
+        template: `
+        <div :style=showStyle>
+              <slot name="header">default header</slot>
+              <slot >default body</slot>
+              <slot name="floor">default floor</slot>
+        </div>
+       <button @click="isShow=!isShow">show</button>
+      `,
+      });
+      slotHeaderTestVm.mount("#slotHeaderTest");
     </script>
   </body>
 </html>
